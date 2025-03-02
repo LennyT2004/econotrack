@@ -1,0 +1,365 @@
+:root {
+    --blanc: #ffffff;
+    --noir: #000000;
+    --vert: #1D4039;
+    --beige: #EBE8D8;
+    --gris: #CCD1CB;
+    --vert-pale: #6CC13C;
+    --rouge-pale: #FF5858;
+}
+
+body {
+    font-family: "Lato", serif;
+    background-color: var(--beige);
+    background-image: url("../static/images/ecotrack-logo-principal-sans-fond.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--noir);
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* Entête */
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+    background-color: var(--vert);
+    padding: 0 4rem;
+}
+
+header img {
+    width: 4rem;
+    height: 4rem;
+}
+
+h1 {
+    font-family: "Bebas Neue", serif;
+    color: var(--blanc);
+}
+
+header a {
+    background-color: var(--rouge-pale);
+    border-radius: 4px;
+    border: 1px solid var(--vert);
+    display: inline-block;
+    cursor: pointer;
+    color: var(--blanc);
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+    text-decoration: none;
+}
+
+header a:hover {
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+/* Message de notification */
+.flash {
+    display: flex;
+    justify-content: center;
+    background-color: var(--vert);
+    color: var(--blanc);
+    margin-bottom: 2rem;
+    animation: flash 5s linear infinite;
+}
+/* Animation de couleur */
+@keyframes flash {
+    0% {
+        background-color: var(--vert);
+    }
+    50% {
+        background-color: var(--rouge-pale);
+    }
+    100% {
+        background-color: var(--vert);
+    }
+}
+
+/* Formulaire de connexion */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+    flex-direction: column;
+}
+
+.auth-container form button:nth-of-type(odd) {
+    margin-bottom: 2rem;
+}
+
+
+/* Section des graphiques et stats */
+.stats {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+    padding: 0 4rem;
+}
+
+.graphique, .pourcentage {
+    background-color: var(--vert);
+    border-radius: 10px;
+    box-shadow: 6px 6px 10px 0px rgba(0, 0, 0, 0.75);
+    color: var(--blanc);
+    padding-left: 0.5rem;
+}
+
+.graphique {
+    width: 60%;
+}
+
+.pourcentage {
+    width: 30%;
+}
+
+.graphique img {
+    width: 95%;
+    height: 95%;
+    object-fit: contain;
+}
+
+/* Section des forms et listes des revenus et dépenses */
+.section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+    padding: 0 4rem;
+}
+
+.form, .liste, .budget-progres {
+    padding-left: 0.5rem;
+}
+
+.form .entete-calcul, .auth-container {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(13.8px);
+    -webkit-backdrop-filter: blur(13.8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.form {
+    width: 40%;
+}
+
+.entete-calcul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.form img {
+    height: 4rem;
+}
+
+.form h2 {
+    margin: 0;
+    padding: 1rem;
+    width: 90%;
+    text-align: center;
+}
+
+.form form, .auth-container form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.auth-container form {
+    width: 60%;
+}
+
+.form form input, .auth-container form input {
+    height: 2rem;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.ajout {
+    display: flex;
+    flex-direction: row;
+}
+
+.ajout button {
+    height: 2.5rem;
+    width: 2.5rem;
+}
+
+button {
+    background-color: var(--vert);
+    border-radius: 4px;
+    border: 1px solid var(--vert);
+    display: inline-block;
+    cursor: pointer;
+    color: var(--blanc);
+    font-size: 1rem;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+button:hover {
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.liste {
+    width: 50%;
+    height: auto;
+    background-color: var(--vert);
+    border-radius: 10px;
+    color: var(--blanc);
+    box-shadow: 6px 6px 10px 0px rgba(0, 0, 0, 0.75);
+}
+
+.liste ul form button,
+.entete-liste form button {
+    background-color: rgba(255, 255, 255, 0.1);
+    margin-left: 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-left: 0.5rem;
+}
+
+/* Section du budget */
+.budget {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 4rem;
+}
+
+.budget-progres {
+    width: 50%;
+    height: auto;
+    background-color: var(--vert);
+    border-radius: 10px;
+    color: var(--blanc);
+    box-shadow: 6px 6px 10px 0px rgba(0, 0, 0, 0.75);
+}
+
+.budget-progres progress {
+    width: 75%;
+    height: 1rem;
+    border-radius: 20px;
+}
+
+/* Adaptation mobile */
+@media only screen and (max-width: 920px) {
+    .entete-calcul {
+        width: 100%;
+    }
+    .stats, .section.depenses, .section.revenus, .budget {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .graphique, .pourcentage, .liste, .budget-progres, .form {
+        width: 75%;
+    }
+
+    .form {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .graphique {
+        margin-bottom: 2rem;
+    }
+}
+
+/* Animation si le pourcentage est au-dessus de 75% ou en-dessous de -75% */
+.jackpot,
+.pauvrete {
+    text-align: center;
+    position: fixed;
+    z-index: 10;
+}
+
+.jackpot span {
+    display: inline-block;
+    margin: -280px 40px 54px -34px;
+    background: url("../static/images/billet.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: drop 5s linear;
+}
+
+.pauvrete span {
+    display: inline-block;
+    margin: -280px 40px 54px -34px;
+    background: url("../static/images/x.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: drop 5s linear;
+}
+
+.jackpot span:nth-child(5n+5),
+.pauvrete span:nth-child(5n+5) {
+    animation-delay: 1s;
+}
+
+.jackpot span:nth-child(3n+2),
+.pauvrete span:nth-child(3n+2) {
+    animation-delay: 1.33s;
+}
+
+.jackpot span:nth-child(2n+5),
+.pauvrete span:nth-child(2n+5) {
+    animation-delay: 1.66s;
+}
+
+.jackpot span:nth-child(3n+10),
+.pauvrete span:nth-child(3n+10) {
+    animation-delay: 2s;
+}
+
+.jackpot span:nth-child(7n+2),
+.pauvrete span:nth-child(7n+2) {
+    animation-delay: 2.33s;
+}
+
+.jackpot span:nth-child(4n+5),
+.pauvrete span:nth-child(4n+5) {
+    animation-delay: 2.66s;
+}
+
+.jackpot span:nth-child(3n+7),
+.pauvrete span:nth-child(3n+7) {
+    animation-delay: 3s;
+}
+
+@keyframes drop {
+    0% {
+        width: 80px;
+        height: 80px;
+        opacity: 1;
+        transform: translate(0, 0px) rotateZ(0deg);
+    }
+    75% {
+        width: 80px;
+        height: 80px;
+        opacity: 1;
+        transform: translate(100px, 600px) rotateZ(270deg);
+    }
+    100% {
+        width: 80px;
+        height: 80px;
+        opacity: 0;
+        transform: translate(150px, 800px) rotateZ(360deg);
+    }
+}

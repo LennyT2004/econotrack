@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EconoTrack</title>
+    <link rel="icon" type="image/x-icon" href="../static/images/econotrack-logo-principal.png">
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Animation des billets et X qui tombent de l'écran -->
+    <div class="{{ div_class }}">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <header>
+        <img src="{{ url_for('static', filename='images/econotrack-logo-principal1.png') }}" alt="logo-principal">
+        <h1>EconoTrack</h1>
+        <a onclick="confirmation(event)" href="{{ url_for('logout') }}">Déconnexion</a>
+    </header>
+    <div class="accueil">
+        {% for message in get_flashed_messages() %}
+        <div class="flash"><h2>{{ message }}</h2></div>
+        {% endfor %}
+        <div class="stats">
+            <div class="graphique">
+                <h2>Graphique</h2>
+                <img src="/plot.png" alt="my plot">
+            </div>
+            <div class="pourcentage">
+                <h2>
+                    Différence : ${{ montant_difference }}
+                </h2>
+                <h2>Résultat :
+                    {% if percentage_result >= 0 %}
+                    <span style="color: #6CC13C;">+{{ percentage_result }}%</span>
+                    {% else %}
+                    <span style="color: FF5858;">{{ percentage_result }}%</span>
+                    {% endif %}
+                </h2>
+                <h2>Budget restant: ${{ remaining_budget }}</h2>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="depenses-revenus">
+        <div class="section depenses">
+            <div class="form depenses">
+                <div class="entete-calcul revenus">
+                    <h2>Calcul des dépenses</h2>
+                    <img src="../static/images/logo-depenses.png" alt="">
+                </div>
+
+                <form method="POST">
+                    <input type="hidden" name="form_type" value="form_expenses">
+                    <div class="ajout depenses">
+                        <input type="number" step="0.01" id="amount_expenses" name="amount_expenses"
+                            placeholder="Montant..." required>
+                        <button type="submit">+</button>
+                    </div>
+
+                    <input type="text" id="description_expenses" name="description_expenses"
+                        placeholder="Description..." required>
+
+                </form>
+            </div>
+            <div class="liste depenses">
+                <div class="entete-liste depenses">
+                    <h2>Dépenses totales: ${{ total_depenses }}</h2>
+
+
+                    <form method="POST" action="/effacer_depenses">
+                        <button onclick="confirmation(event)" type="submit">Retirer toutes les dépenses</button>
+                    </form>
+                </div>
+                <ul>
+                    {% for expense in expenses %}
+                    <li>{{ expense.description }}: ${{ expense.amount }}</li>
+                    <form method="POST" action="/retirer_une_depense">
+                        <input type="hidden" name="index" value="{{ loop.index0 }}">
+                        <button type="submit">Retirer</button>
+                    </form>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="section revenus">
+            <div class="form revenus">
+                <div class="entete-calcul revenus">
+                    <h2>Calcul des revenus</h2>
+                    <img src="../static/images/logo-revenus.png" alt="">
+                </div>
+
+                <form method="POST">
+                    <input type="hidden" name="form_type" value="form_revenus">
+                    <div class="ajout revenus">
+                        <input type="number" step="0.01" id="amount_revenus" name="amount_revenus"
+                            placeholder="Montant..." required>
+                        <button type="submit">+</button>
+                    </div>
+                    <input type="text" id="description_revenus" name="description_revenus" placeholder="Description..."
+                        required>
+
+
+                </form>
+            </div>
+            <div class="liste revenus">
+                <div class="entete-liste revenus">
+                    <h2>Revenus totaux: ${{ total_revenus }}</h2>
+
+                    <form method="POST" action="/effacer_revenus">
+                        <button onclick="confirmation(event)" type="submit">Retirer tous les revenus</button>
+                    </form>
+                </div>
+
+                <ul>
+                    {% for revenu in revenus %}
+                    <li>{{ revenu.description }}: ${{ revenu.amount }}</li>
+                    <form method="POST" action="/retirer_un_revenu">
+                        <input type="hidden" name="index" value="{{ loop.index0 }}">
+                        <button type="submit">Retirer</button>
+                    </form>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section budget">
+        <div class="form budget-form">
+            <div class="entete-calcul budget-calcul">
+                <h2>Budget</h2>
+                <img src="../static/images/logo-budget-v2.png" alt="">
+            </div>
+
+            <form method="POST">
+                <input type="hidden" name="form_type" value="set_budget">
+                <div class="ajout budget-ajout">
+                    <input type="number" step="0.01" id="budget" name="budget" placeholder="Montant..." required>
+                    <button type="submit">+</button>
+                </div>
+            </form>
+            <form method="POST">
+                <h3>Retrait du budget</h3>
+                <input type="hidden" name="form_type" value="form_budget_expenses">
+                <div class="ajout budget-retrait">
+                    <input type="number" step="0.01" id="amount_budget_expenses" name="amount_budget_expenses"
+                        placeholder="Montant..." required>
+                    <button type="submit">+</button>
+                </div>
+
+                <input type="text" id="description_budget_expenses" name="description_budget_expenses"
+                    placeholder="Description..." required>
+
+            </form>
+        </div>
+
+        <div class="budget-progres">
+            <div class="entete-liste budget-liste">
+                <h2>Budget restant: ${{ remaining_budget }}</h2>
+
+                <form method="POST">
+                    <input type="hidden" name="form_type" value="reset_budget">
+                    <button onclick="confirmation(event)" type="submit">Réinitialiser le budget</button>
+                </form>
+            </div>
+            <progress value="{{ remaining_budget }}" max="{{ budget }}"></progress>
+
+            <ul>
+                {% for expense in budget_expenses %}
+                <li>{{ expense.description }}: -${{ expense.amount }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+
+    <script>
+        // Fonction ajoutant un formulaire de confirmation pour certaines actions pour éviter des accrochages
+        function confirmation(event) {
+            if (!confirm("Voulez-vous confirmer cette action?")) {
+                event.preventDefault();
+            }
+        }
+    </script>
+
+</body>
+
+</html>
